@@ -4,6 +4,6 @@ module decoder (
     output [19:0] imm
 );
     assign type_id = instr[11:9];      
-    assign imm     = instr[31:12];    
+    assign imm     = instr[31:12];        //immediate value
     
 endmodule
