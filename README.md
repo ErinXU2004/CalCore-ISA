@@ -36,7 +36,7 @@ MEM[user_index] = {
 | Instruction | Type   | Opcode（7-bit） |
 | ----------- | ------ | ----------------- |
 | SET\_HEIGHT | I-type | `0001011`         |
-| SET\_WEIGHT | I-type | `0001100`         |
+| SET\_WEIGHT | I-type | `0001011`         |
 | CALC\_BMI   | R-type | `0001101`         |
 | CALC\_BMR   | R-type | `0001110`         |
 
@@ -49,8 +49,8 @@ MEM[user_index] = {
 - funct3: field selector: 0 = height, 1 = weight
 - MEM[rd] = value stored in rs1 + imm
 ```asm
-SET_HEIGHT x0, x1, 180  // Set height = 180 cm for MEM[x1]
-SET_WEIGHT x0, x1, 75   // Set weight = 75 kg for MEM[x1]
+SET_HEIGHT x1, 180  // Set height = 180 cm for MEM[x1]
+SET_WEIGHT x1, 75   // Set weight = 75 kg for MEM[x1]
 ```
 
 ### 📘 R-type Instructions: CALC_BMI, CALC_BMR
@@ -59,9 +59,7 @@ SET_WEIGHT x0, x1, 75   // Set weight = 75 kg for MEM[x1]
 | funct7  | rs2   | rs1   | funct3| rd   | opcode |
 - rs1: user index → source of height/weight
 - rs2: destination register to hold the result
-- rd: operation selector:
-- 0 = compute BMI
-- 1 = compute BMR
+- rd: operation selector
 - funct7: used to encode additional parameters:
 - For BMR: [6] = gender (0=female, 1=male), [5:0] = age (0–63)
 ```asm

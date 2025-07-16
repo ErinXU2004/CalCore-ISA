@@ -12,18 +12,18 @@ module alu (
     logic [31:0] bmr;
     logic [31:0] height_m;
     logic [31:0] height_m2;
-
+    logic [31:0] weight_x10000; // weight * 10000
+    logic [31:0] bmi_temp;
     logic [5:0] age;
     logic gender; // 0=female, 1=male
     assign gender = funct7[6];
     assign age = funct7[5:0];
-    logic [31:0] weight_x10000; // weight * 10000
-    logic [31:0] bmi_temp;
 // BMI = weight / (height_m)^2
+    always@(*)begin
+        height_mm = height * 10; // convert cm to mm (simulate float)
+        height_m2 = (height_mm * height_mm) / 10000; // scale factor for decimal
+        weight_x10000 = weight * 10000;
         if (is_calc_bmi) begin
-            height_mm = height * 10; // convert cm to mm (simulate float)
-            height_m2 = (height_mm * height_mm) / 10000; // scale factor for decimal
-            weight_x10000 = weight * 10000;
             if (height_m2 != 0)
                 bmi = weight_x10000 / height_m2;  // fixed point simulation
             else
@@ -39,6 +39,9 @@ module alu (
             else
                 bmr = bmr - 161;
             result = bmr;
+        end
+        else begin
+            result = 0;  // Default output
         end
     end
 endmodule

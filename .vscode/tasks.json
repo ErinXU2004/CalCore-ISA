@@ -1,0 +1,14 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Run Simulation",
+        "type": "shell",
+        "command": "cd ${workspaceFolder} && iverilog -o simv -I rtl rtl/*.v tb/tb_top.v && vvp simv",
+        "group": "build",
+        "presentation": {
+          "reveal": "always"
+        }
+      }
+    ]
+  }
